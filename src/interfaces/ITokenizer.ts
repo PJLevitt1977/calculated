@@ -1,7 +1,7 @@
 import type { TokenCasing } from "../enums.js";
 
-export interface ITokeniser {
+export interface ITokenizer {
   tokenCasing: TokenCasing;
-  tokenise(expression: string): string[];
+  tokenize(expression: string): string[];
   isASign(symbol: string, index: number, tokens: string[]): boolean;
 }

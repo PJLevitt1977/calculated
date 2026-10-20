@@ -1,7 +1,7 @@
 import { TokenCasing } from "../enums.js";
 import type { IExpressionParser } from "../interfaces/IExpressionParser.js";
 import type { IFunctionLibrary } from "../interfaces/IFunctionLibrary.js";
-import type { ITokeniser } from "../interfaces/ITokeniser.js";
+import type { ITokenizer } from "../interfaces/ITokenizer.js";
 import { ExpressionTree } from "../models/ExpressionTree.js";
 import { createTreeNode } from "./BaseParser.js";
 import { ValueParser } from "./ValueParser.js";
@@ -9,16 +9,16 @@ import { ValueParser } from "./ValueParser.js";
 export class ExpressionParser<TCalc, TExpr>
   implements IExpressionParser<TCalc, TExpr>
 {
-  private readonly _tokeniser: ITokeniser;
+  private readonly _tokenizer: ITokenizer;
   private readonly _functions: IFunctionLibrary<TCalc, TExpr>;
   private readonly _valueParser: ValueParser<TCalc, TExpr>;
 
   constructor(
-    tokeniser: ITokeniser,
+    tokenizer: ITokenizer,
     functions: IFunctionLibrary<TCalc, TExpr>
   ) {
-    this._tokeniser = tokeniser;
-    this._tokeniser.tokenCasing = TokenCasing.UPPER;
+    this._tokenizer = tokenizer;
+    this._tokenizer.tokenCasing = TokenCasing.UPPER;
     this._functions = functions;
     this._valueParser = new ValueParser();
   }
@@ -28,7 +28,7 @@ export class ExpressionParser<TCalc, TExpr>
   }
 
   parse(expression: string): ExpressionTree {
-    const tokens = this._tokeniser.tokenise(expression);
+    const tokens = this._tokenizer.tokenize(expression);
     if (tokens.length === 0) return new ExpressionTree("");
 
     const values: ExpressionTree[] = [];
@@ -39,7 +39,7 @@ export class ExpressionParser<TCalc, TExpr>
 
       if (
         (token === "+" || token === "-") &&
-        this._tokeniser.isASign(token, i, tokens)
+        this._tokenizer.isASign(token, i, tokens)
       ) {
         const unaryOp = `U${token}`;
         this._functions

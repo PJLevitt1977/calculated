@@ -5,8 +5,8 @@ const calc = createCalculator();
 
 describe("Calculator.performCalculation", () => {
   it("evaluates a simple addition", () => {
-    const result = calc.performCalculation({ A: "2+3" }, {});
-    expect(result["A"]).toBe(5);
+    const result = calc.performCalculation({ a: "2+3" }, {});
+    expect(result["a"]).toBe(5);
   });
 
   it("respects operator precedence", () => {

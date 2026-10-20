@@ -1,12 +1,12 @@
 import { TokenCasing } from "../enums.js";
-import type { ITokeniser } from "../interfaces/ITokeniser.js";
+import type { ITokenizer } from "../interfaces/ITokenizer.js";
 
 const OPERATOR_TOKENS = ["+", "-", "/", "*", "(", ")", ",", "="];
 
-export class Tokeniser implements ITokeniser {
+export class Tokenizer implements ITokenizer {
   tokenCasing: TokenCasing = TokenCasing.None;
 
-  tokenise(expression: string): string[] {
+  tokenize(expression: string): string[] {
     let expr = expression.replace(/ /g, "");
     for (const token of OPERATOR_TOKENS) {
       expr = expr.split(token).join(` ${token} `);
